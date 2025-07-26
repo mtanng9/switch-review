@@ -1,0 +1,25 @@
+{{define "title"}} Homepage{{end}}
+
+{{define "body"}} 
+    <h1>New Reviews</h1>
+
+    {{range .Reviews}}
+        <div>
+            <div>
+                <img src="" alt="review-img">
+                Score:  {{.Score}}
+            </div>
+            Title: {{.Title}}
+            Snippet: {{.Snippet}}
+        </div>
+    {{end}}
+
+    <h1>New Articles</h1>
+            {{range .Articles}}
+        <div>
+            <img src="" alt="review-img">
+            Title: {{.Title}}
+            Snippet: {{.Snippet}}
+        </div>
+    {{end}}
+{{end}}
