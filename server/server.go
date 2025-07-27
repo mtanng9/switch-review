@@ -1,11 +1,15 @@
 package server
 
 import (
+	"database/sql"
 	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 	"path"
+
+	articlehandler "github.com/mtanng9/switch-review/server/articleHandler"
+	reviewhandler "github.com/mtanng9/switch-review/server/reviewHandler"
 )
 
 type Article struct {
@@ -128,13 +132,13 @@ func article(w http.ResponseWriter, r *http.Request) {
 	t.Execute(w, articles[0])
 }
 
-func StartServer() {
+func StartServer(db *sql.DB) {
 	// Removed http for mux to handle path params easier
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/", index)
-	mux.HandleFunc("/review/{id}", review)
-	mux.HandleFunc("/article/{id}", article)
+	mux.HandleFunc("GET /review/{id}", reviewhandler.GetReview(db))
+	mux.HandleFunc("GET /article/{id}", articlehandler.GetArticle(db))
 
 	log.Println("Starting the server on port 8080")
 	log.Fatal(http.ListenAndServe(":8080", mux))
