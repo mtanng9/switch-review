@@ -1,11 +1,11 @@
 {{define "title"}} Homepage{{end}}
 
 {{define "body"}} 
-    <h1>New Reviews</h1>
+    <h1 class="text-[#ff4554] font-bold text-2xl py-4">New Reviews</h1>
 
     {{range .Reviews}}
-        <div>
-            <div>
+        <div class="flex flex-col py-2">
+            <div class="flex flex-row relative justify-between">
                 <img src="" alt="review-img">
                 Score:  {{.Score}}
             </div>
@@ -14,9 +14,9 @@
         </div>
     {{end}}
 
-    <h1>New Articles</h1>
+    <h1 class="text-[#ff4554] font-bold text-2xl py-4">New Articles</h1>
             {{range .Articles}}
-        <div>
+        <div class="flex flex-col py-2">
             <img src="" alt="review-img">
             Title: {{.Title}}
             Snippet: {{.Snippet}}

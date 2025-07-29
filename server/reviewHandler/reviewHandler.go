@@ -2,20 +2,16 @@ package reviewhandler
 
 import (
 	"database/sql"
-	"fmt"
 	"net/http"
 	"path"
 	"text/template"
-	"time"
+
+	"github.com/mtanng9/switch-review/store/review"
 )
 
-type Review struct {
-	Id        int
-	Title     string
-	Snippet   string
-	Score     int
-	Body      string
-	createdAt time.Time
+type ReviewByDevicePage struct {
+	Title   string
+	Reviews []review.Review
 }
 
 // CRUD
@@ -29,11 +25,8 @@ func GetReview(db *sql.DB) http.HandlerFunc {
 		id := r.PathValue("id")
 		baseFile := path.Join("html", "base.html")
 
-		var review Review
-		query := `SELECT id, title, snippet, score, body, created_at FROM reviews WHERE id = ?`
-		err := db.QueryRow(query, id).Scan(&review.Id, &review.Title, &review.Snippet, &review.Score, &review.Body, &review.createdAt)
+		review, err := review.GetReviewById(db, id)
 		if err != nil {
-			fmt.Printf("Could not get Review: %v \n", err)
 			notFoundFile := path.Join("html", "notFound.html")
 			t, _ := template.ParseFiles(baseFile, notFoundFile)
 			t.Execute(w, nil)
@@ -43,5 +36,27 @@ func GetReview(db *sql.DB) http.HandlerFunc {
 		reviewFile := path.Join("html", "review.html")
 		t, _ := template.ParseFiles(baseFile, reviewFile)
 		t.Execute(w, review)
+	}
+}
+
+func GetReviewByDevice(db *sql.DB, device string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		baseFile := path.Join("html", "base.html")
+
+		reviews, err := review.GetReviewsByDevice(db, device)
+		if err != nil {
+			notFoundFile := path.Join("html", "error.html")
+			t, _ := template.ParseFiles(baseFile, notFoundFile)
+			t.Execute(w, nil)
+			return
+		}
+
+		reviewByDevicePage := ReviewByDevicePage{
+			Title:   device,
+			Reviews: reviews,
+		}
+		reviewFile := path.Join("html", "reviewsByDevice.html")
+		t, _ := template.ParseFiles(baseFile, reviewFile)
+		t.Execute(w, reviewByDevicePage)
 	}
 }

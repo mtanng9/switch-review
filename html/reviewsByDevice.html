@@ -1,0 +1,14 @@
+{{define "title"}}{{.Title}}{{end}}
+
+{{define "body"}} 
+    {{range .Reviews}}
+        <div>
+            <div>
+                <img src="" alt="review-img">
+                Score:  {{.Score}}
+            </div>
+            Title: {{.Title}}
+            Snippet: {{.Snippet}}
+        </div>
+    {{end}}
+{{end}}

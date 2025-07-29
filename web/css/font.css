@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-hammersmith-one: "Hammersmith One", sans-serif; 
+}

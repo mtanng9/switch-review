@@ -2,16 +2,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>{{ template "title" .}}</title>
 </head>
-<body>
-    <header>
-        <img src="" alt="logo">
+<body class="p-6">
+    <header class="flex flex-row w-full justify-between p-6">
+        <img class="flex justify-start w-16 h-16" src="/static/switch-review-logo.png" alt="logo">
     
-        <div>
-            <a>Switch 1 Reviews</a>
-            <a>Switch 2 Reviews</a>
-            <a>Articles</a>
+        <div class="flex justify-evenly relative">
+            <a class="text-[#00c3e3]">Switch 1 Reviews</a>
+            <a class="text-[#ff4554]">Switch 2 Reviews</a>
+            <a class="text-[#989898]">Articles</a>
         </div>
     
         <div>

@@ -19,6 +19,7 @@ func InitDB() *sql.DB {
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		title TEXT NOT NULL,
 		snippet TEXT NOT NULL,
+		device TEXT NOT NULL,
 		score INTEGER NOT NULL,
 		body TEXT NOT NULL,
 		created_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -49,8 +50,13 @@ func InitDB() *sql.DB {
 
 func SeedDB(db *sql.DB) {
 	createReview := `
-		INSERT INTO reviews (title, snippet, score, body)
-		VALUES ('Breath of the Wild', 'Its amazing', 85, 'Ayyyy ayyyy ay') 
+		INSERT INTO reviews (title, snippet, device, score, body)
+		VALUES 
+		('Review 1', 'Review 1 Snippet', 'Switch 1', 85, 'Review 1 Body'),
+		('Review 2', 'Review 2 Snippet', 'Switch 1', 85, 'Review 2 Body'),
+		('Review 3', 'Review 3 Snippet', 'Switch 1', 85, 'Review 3 Body'),
+		('Review 4', 'Review 4 Snippet', 'Switch 1', 85, 'Review 4 Body'),
+		('Review 5', 'Review 5 Snippet', 'Switch 1', 85, 'Review 5 Body');
 	`
 
 	_, err := db.Exec(createReview)
@@ -60,7 +66,11 @@ func SeedDB(db *sql.DB) {
 
 	createArticle := `
 		INSERT INTO articles (title, snippet, body)
-		VALUES ('Breath of the Wild', 'Its amazing', 'Ayyyy ayyyy ay') 
+		VALUES 
+		('Article 1', 'Article 1 Snippet', 'Article 1 Body'),
+		('Article 2', 'Article 2 Snippet', 'Article 2 Body'),
+		('Article 3', 'Article 3 Snippet', 'Article 3 Body'),
+		('Article 4', 'Article 4 Snippet', 'Article 4 Body');
 	`
 
 	_, err = db.Exec(createArticle)
