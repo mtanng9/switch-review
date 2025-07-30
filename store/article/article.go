@@ -13,9 +13,31 @@ type Article struct {
 	CreatedAt time.Time
 }
 
+func GetArticleById(db *sql.DB, id string) (Article, error) {
+	var article Article
+	query := `SELECT id, title, snippet, body, created_at FROM articles WHERE id = ?`
+	err := db.QueryRow(query, id).Scan(&article.Id, &article.Title, &article.Snippet, &article.Body, &article.CreatedAt)
+	if err != nil {
+		return article, err
+	}
+
+	return article, nil
+}
+
 func GetThreeLatestArticles(db *sql.DB) ([]Article, error) {
 	var articles []Article
 	query := `SELECT id, title, snippet, body, created_at FROM articles ORDER BY created_at DESC LIMIT 3`
+	rows, err := db.Query(query)
+	if err != nil {
+		return articles, err
+	}
+
+	return scanArticles(rows)
+}
+
+func GetAllArticles(db *sql.DB) ([]Article, error) {
+	var articles []Article
+	query := `SELECT id, title, snippet, body, created_at FROM articles ORDER BY created_at`
 	rows, err := db.Query(query)
 	if err != nil {
 		return articles, err

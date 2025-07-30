@@ -1,14 +1,33 @@
 {{define "title"}}{{.Title}}{{end}}
 
 {{define "body"}} 
-    {{range .Reviews}}
-        <div>
-            <div>
-                <img src="" alt="review-img">
-                Score:  {{.Score}}
+    <div class="mb-5">
+        <h1 class="text-[#ff4554] font-bold text-2xl py-4">{{.Title}} Reviews</h1>
+        <hr class="bg-[#ff4554] border-0 h-px">
+    </div>
+
+    <div class="flex flex-row justify-around">
+        {{range .Reviews}}
+            <div class="flex flex-col p-3 border border-black rounded-3xl">
+                <div class="flex flex-row relative justify-between mb-3">
+                    <img class="w-1/2" src="" alt="review-img">
+                    <div class="flex border border-black rounded-3xl w-1/2 items-center">
+                        <h2 class="w-full text-[#ff4554] font-bold text-xl text-center">
+                            {{.Score}}
+                        </h2>
+                    </div>
+                </div>
+
+                <div class="flex flex-col ">
+                    <h3 class="text-center text-[#00c3e3] font-bold text-lg">
+                        {{.Title}}
+                    </h3>
+                    <hr class="mt-2 mb-2">
+                    <p class="text-center text-sm">
+                        {{.Snippet}}
+                    </p>
+                </div>
             </div>
-            Title: {{.Title}}
-            Snippet: {{.Snippet}}
-        </div>
-    {{end}}
+        {{end}}
+    </div>
 {{end}}

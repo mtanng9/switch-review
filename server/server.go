@@ -23,7 +23,9 @@ func StartServer(db *sql.DB) {
 
 	mux.HandleFunc("GET /", indexhandler.GetIndex(db))
 	mux.HandleFunc("GET /review/switch1", reviewhandler.GetReviewByDevice(db, "Switch 1"))
+	mux.HandleFunc("GET /review/switch2", reviewhandler.GetReviewByDevice(db, "Switch 2"))
 	mux.HandleFunc("GET /review/{id}", reviewhandler.GetReview(db))
+	mux.HandleFunc("GET /article", articlehandler.GetAllArticles(db))
 	mux.HandleFunc("GET /article/{id}", articlehandler.GetArticle(db))
 
 	log.Println("Starting the server on port 8080")

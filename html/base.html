@@ -7,16 +7,19 @@
 </head>
 <body class="p-6">
     <header class="flex flex-row w-full justify-between p-6">
-        <img class="flex justify-start w-16 h-16" src="/static/switch-review-logo.png" alt="logo">
-    
-        <div class="flex justify-evenly relative">
-            <a class="text-[#00c3e3]">Switch 1 Reviews</a>
-            <a class="text-[#ff4554]">Switch 2 Reviews</a>
-            <a class="text-[#989898]">Articles</a>
+        <div class="flex">
+            <img class="flex justify-start w-16 h-16" src="/static/switch-review-logo.png" alt="logo">
+            <h1 class="text-xl font-bold pl-1">Switch Up Reviews</h1>
         </div>
     
-        <div>
-            <input type="text">
+        <div class="flex justify-around">
+            <a class="text-[#00c3e3] p-3 text-center align-middle" href="/review/switch1">Switch 1 Reviews</a>
+            <a class="text-[#ff4554] p-3 text-center align-middle" href="/review/switch2">Switch 2 Reviews</a>
+            <a class="text-[#989898] p-3 text-center align-middle" href="/article">Articles</a>
+        </div>
+    
+        <div >
+            <input class="border border-black rounded-full text-gray-500 p-1" type="text" placeholder="   Search">
         </div>
     
     </header>

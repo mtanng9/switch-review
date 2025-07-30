@@ -6,15 +6,13 @@ import (
 	"html/template"
 	"net/http"
 	"path"
-	"time"
+
+	"github.com/mtanng9/switch-review/store/article"
 )
 
-type Article struct {
-	Id        int
-	Title     string
-	Snippet   string
-	Body      string
-	CreatedAt time.Time
+type articlesPage struct {
+	Title    string
+	Articles []article.Article
 }
 
 func GetArticle(db *sql.DB) http.HandlerFunc {
@@ -22,13 +20,10 @@ func GetArticle(db *sql.DB) http.HandlerFunc {
 		id := r.PathValue("id")
 		baseFile := path.Join("html", "base.html")
 
-		var article Article
-		query := `SELECT id, title, snippet, body, created_at FROM articles WHERE id = ?`
-		err := db.QueryRow(query, id).Scan(&article.Id, &article.Title, &article.Snippet, &article.Body, &article.CreatedAt)
+		article, err := article.GetArticleById(db, id)
 		if err != nil {
-			fmt.Printf("Could not get Article: %v \n", err)
-			notFoundFile := path.Join("html", "notFound.html")
-			t, _ := template.ParseFiles(baseFile, notFoundFile)
+			errorFile := path.Join("html", "error.html")
+			t, _ := template.ParseFiles(baseFile, errorFile)
 			t.Execute(w, nil)
 			return
 		}
@@ -37,5 +32,30 @@ func GetArticle(db *sql.DB) http.HandlerFunc {
 		t, _ := template.ParseFiles(baseFile, articleFile)
 		t.Execute(w, article)
 
+	}
+}
+
+func GetAllArticles(db *sql.DB) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		baseFile := path.Join("html", "base.html")
+
+		var articles []article.Article
+		articles, err := article.GetAllArticles(db)
+		if err != nil {
+			fmt.Printf("Could not get Articles: %v \n", err)
+			errorFile := path.Join("html", "error.html")
+			t, _ := template.ParseFiles(baseFile, errorFile)
+			t.Execute(w, nil)
+			return
+		}
+
+		articlesPage := articlesPage{
+			Title:    "Articles",
+			Articles: articles,
+		}
+
+		articlesFile := path.Join("html", "articles.html")
+		t, _ := template.ParseFiles(baseFile, articlesFile)
+		t.Execute(w, articlesPage)
 	}
 }

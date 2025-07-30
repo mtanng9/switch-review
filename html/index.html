@@ -1,25 +1,56 @@
 {{define "title"}} Homepage{{end}}
 
 {{define "body"}} 
-    <h1 class="text-[#ff4554] font-bold text-2xl py-4">New Reviews</h1>
+    <div class="mb-5">
+        <h1 class="text-[#ff4554] font-bold text-2xl py-4">New Reviews</h1>
+        <hr class="bg-[#ff4554] border-0 h-px">
+    </div>
 
-    {{range .Reviews}}
-        <div class="flex flex-col py-2">
-            <div class="flex flex-row relative justify-between">
-                <img src="" alt="review-img">
-                Score:  {{.Score}}
+    <div class="flex flex-row justify-around">
+        {{range .Reviews}}
+            <div class="flex flex-col p-3 border border-black rounded-3xl">
+                <div class="flex flex-row relative justify-between mb-3">
+                    <img class="w-1/2" src="" alt="review-img">
+                    <div class="flex border border-black rounded-3xl w-1/2 items-center">
+                        <h2 class="w-full text-[#ff4554] font-bold text-xl text-center">
+                            {{.Score}}
+                        </h2>
+                    </div>
+                </div>
+
+                <div class="flex flex-col ">
+                    <h3 class="text-center text-[#00c3e3] font-bold text-lg">
+                        {{.Title}}
+                    </h3>
+                    <hr class="mt-2 mb-2">
+                    <p class="text-center text-sm">
+                        {{.Snippet}}
+                    </p>
+                </div>
             </div>
-            Title: {{.Title}}
-            Snippet: {{.Snippet}}
-        </div>
-    {{end}}
+        {{end}}
+    </div>
 
-    <h1 class="text-[#ff4554] font-bold text-2xl py-4">New Articles</h1>
-            {{range .Articles}}
-        <div class="flex flex-col py-2">
-            <img src="" alt="review-img">
-            Title: {{.Title}}
-            Snippet: {{.Snippet}}
-        </div>
-    {{end}}
+    <div class="mb-5 mt-5">
+        <h1 class="text-[#ff4554] font-bold text-2xl py-4">New Articles</h1>
+        <hr class="bg-[#ff4554] border-0 h-px">
+    </div>
+
+    <div class="flex flex-row justify-around">
+        {{range .Articles}}
+            <div class="flex flex-col p-3 border border-black rounded-3xl justify-center">
+                <img src="" alt="review-img">
+
+                <div class="mt-3">
+                    <h3 class="text-center text-[#00c3e3] font-bold text-lg">
+                        {{.Title}}
+                    </h3>
+                    <hr class="mt-2 mb-2">
+                    <p class="text-center text-sm">
+                        {{.Snippet}}
+                    </p>
+                </div>
+            </div>
+        {{end}}
+    </div>
 {{end}}

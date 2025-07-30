@@ -1,11 +1,17 @@
 {{define "title"}}{{.Title}}{{end}}
 
 {{define "body"}} 
-    <img src="" alt="review-header-img">
-    <h1 class="text-[#00c3e3] font-bold text-xl">{{.Title}}</h1>
+<div class="flex flex-col items-center">
+    <img src="" alt="review-header-img" class="m-3">
+    <h1 class="text-[#00c3e3] font-bold text-4xl">{{.Title}}</h1>
 
-    <div>
-        {{.Score}}
-        {{.Body}}
+    <div class="flex flex-row mx-30">
+        <h3 class="p-3 m-5 border border-[#ff4554] text-2xl font-bold rounded-3xl h-15">
+            {{.Score}}
+        </h3>
+        <p class="m-3">
+            {{.Body}}
+        </p>
     </div>
+</div>
 {{end}}

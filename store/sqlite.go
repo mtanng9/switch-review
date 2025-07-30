@@ -47,34 +47,3 @@ func InitDB() *sql.DB {
 
 	return db
 }
-
-func SeedDB(db *sql.DB) {
-	createReview := `
-		INSERT INTO reviews (title, snippet, device, score, body)
-		VALUES 
-		('Review 1', 'Review 1 Snippet', 'Switch 1', 85, 'Review 1 Body'),
-		('Review 2', 'Review 2 Snippet', 'Switch 1', 85, 'Review 2 Body'),
-		('Review 3', 'Review 3 Snippet', 'Switch 1', 85, 'Review 3 Body'),
-		('Review 4', 'Review 4 Snippet', 'Switch 1', 85, 'Review 4 Body'),
-		('Review 5', 'Review 5 Snippet', 'Switch 1', 85, 'Review 5 Body');
-	`
-
-	_, err := db.Exec(createReview)
-	if err != nil {
-		log.Fatalf("Failed to seed Reviews data: %v", err)
-	}
-
-	createArticle := `
-		INSERT INTO articles (title, snippet, body)
-		VALUES 
-		('Article 1', 'Article 1 Snippet', 'Article 1 Body'),
-		('Article 2', 'Article 2 Snippet', 'Article 2 Body'),
-		('Article 3', 'Article 3 Snippet', 'Article 3 Body'),
-		('Article 4', 'Article 4 Snippet', 'Article 4 Body');
-	`
-
-	_, err = db.Exec(createArticle)
-	if err != nil {
-		log.Fatalf("Failed to seed Articles data: %v", err)
-	}
-}
